@@ -1,0 +1,8 @@
+# Baseline Method selection
+method: "cross_correlation"
+map_to_summary_graph: "max" # This is needed for methods that return window causal graphs
+var_absolute_values: False
+reverse_physical: True
+filter_mode: None # next,biggest,corr
+
+max_lag: 50 # Only used for 

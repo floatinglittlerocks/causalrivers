@@ -1,0 +1,41 @@
+defaults:
+  - _self_
+  - method_hps: additional_hps.yaml
+  - override hydra/launcher: submitit_slurm
+
+
+sample_path: "datasets/"
+data_path: "resources/rivers_ts_east_germany.csv"
+full_graph_path: "resources/rivers_east_germany.p"
+save_path: "results/"
+
+
+ds_name: "debug_set_3"
+eval_set: "test"
+
+
+#Preprocessing
+resolution_value: "1H"
+subsample_value: 1
+window_data_year_value: False # year subselection possible
+window_data_month_value: [] # Further month subselection possible if year is specified
+interpolation: True
+normalize: False
+save_full_out: True
+subsample_strategy: None
+var_test_window: 720
+restrict_to: -1 # Not restricted
+
+# scoring HPs
+parallel: 0
+remove_diagonal: True
+
+hydra:
+
+  launcher: 
+    cpus_per_task: 4
+    timeout_min: 6969
+    mem_gb: 8
+    gpus_per_task: 0
+    partition: workstation,robolab
+    exclude: ker
