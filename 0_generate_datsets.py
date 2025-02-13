@@ -8,7 +8,6 @@ from omegaconf import DictConfig
 
 sys.path.append("..")
 from tools.graph_sampling_tools import (add_one_random_node,
-                                        check_corr_character,
                                         combine_far_apart, get_all_sink_cases,
                                         get_all_subgraphs, get_longest_path,
                                         select_confounder_samples)
@@ -48,9 +47,11 @@ def main(cfg: DictConfig):
         for x in [3,5]:
             for y in ["debug_set", "random","1_random", "root_cause","confounder", "close",]:
                 to_generate.append((y,x))
-        to_generate.append(("disjoint", 10))
     else:
         to_generate = [(cfg.which, cfg.n_vars)]
+
+    if not os.path.exists(cfg.save_path):
+            os.mkdir(cfg.save_path)
 
 
     print(to_generate)
@@ -91,9 +92,9 @@ def main(cfg: DictConfig):
 
         elif structure == "confounder":
             print("Generating confounder examples...")
-            east = select_confounder_samples(east_G,cfg)
-            bav = select_confounder_samples(bav_G,cfg)
-            flood = select_confounder_samples(flood_G,cfg)
+            east = select_confounder_samples(east_G,n_vars)
+            bav = select_confounder_samples(bav_G,n_vars)
+            flood = select_confounder_samples(flood_G,n_vars)
 
         elif structure == "disjoint":
             print("Disjoint examples...")
@@ -109,24 +110,6 @@ def main(cfg: DictConfig):
             print("Selecting sink examples...")
             east, bav, flood= (get_all_sink_cases(x,n_vars=n_vars,restrict=cfg.g_per_sink) for x in [east_G, bav_G, flood_G])
 
-        #TODO Broken because it requires the lag information on the edges. FIX
-        # elif version == "corr_subselection":
-        #     print("Generating examples with specified correlational characteristics...")
-        #     candidates_train = get_all_subgraphs(finetune_data,n_vars=cfg.n_vars)
-        #     short_enough = []
-        #     # this strategy return inf if some edges have no specified links. 
-        #     # Therefore it only return graphs which are garantueed to be under the threshold
-        #     for x in candidates_train:
-        #         if check_corr_character(nx.subgraph(finetune_data,x), cfg.corr_character):
-        #             short_enough.append(x)
-        #     candidates_train = short_enough
-
-        #     candidates_test = get_all_subgraphs(G,n_vars=cfg.n_vars)
-        #     for x in candidates_test:
-        #         if check_corr_character(nx.subgraph(G,x), cfg.corr_character):
-        #             short_enough.append(x)
-        #     candidates_test = short_enough
-    
         else:
             print("VERSION UNKNOWN")
             break

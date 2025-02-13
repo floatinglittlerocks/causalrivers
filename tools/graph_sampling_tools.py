@@ -129,13 +129,12 @@ def check_corr_character(sub_G, measure = [["lag_median", 10], ["lag_var", 1000]
     return True
 
 
-def select_confounder_samples(G,cfg):
+def select_confounder_samples(G,n_vars):
     """
     Gets all samples from G where a single node has multiple sucessors and removes it.
     """
     conf = [x for x in G.nodes if len(list(G.successors(x))) > 1]
-    potential_list = get_all_subgraphs(G,n_vars=cfg.n_vars)
-
+    potential_list = get_all_subgraphs(G,n_vars=n_vars)
 
     samples = []
     for con in conf:
@@ -164,47 +163,3 @@ def all_extensions(current_G, G, succ=True):
                 if x not in current_G
             ]
     return [current_G + [ex] for ex in set(extensions)]
-
-
-def collect_more_nodes(add_to_graph, add_to_graph_edges, n_vars, G):
-    """
-    Legacy. Not used.
-    """
-    possible_new = []
-    possible_new_edges = []
-    possible_new = []
-    possible_new_edges = []
-    pre_save = []
-    suc_save = []
-    for node in add_to_graph:
-        [
-            pre_save.append(x)
-            for x in list(G.predecessors(node))
-            if x not in add_to_graph
-        ]
-
-        [suc_save.append(x) for x in list(G.successors(node)) if x not in add_to_graph]
-    possible_new = pre_save + suc_save
-    [possible_new_edges.append((pre, node)) for pre in pre_save]
-    [possible_new_edges.append((node, suc)) for suc in suc_save]
-
-    if len(add_to_graph) + len(possible_new) >= n_vars:
-        # we might need to remove some.
-        shuffle = np.arange(len(possible_new))
-        np.random.shuffle(shuffle)
-        possible_new = list(np.array(possible_new)[shuffle])
-        possible_new_edges = list(np.array(possible_new_edges)[shuffle])
-        limit = n_vars - len(add_to_graph)
-        add_to_graph = add_to_graph + possible_new[:limit]
-        add_to_graph_edges = add_to_graph_edges + possible_new_edges[:limit]
-
-        return add_to_graph, add_to_graph_edges, True
-
-    elif len(possible_new) == 0:
-        return add_to_graph, add_to_graph_edges, False
-    else:
-        return (
-            add_to_graph + possible_new,
-            add_to_graph_edges + possible_new_edges,
-            True,
-        )

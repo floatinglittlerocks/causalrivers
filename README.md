@@ -1,5 +1,5 @@
 
-# Rivers East Germany (A large scale Causal Discovery Benchmark)
+# CausalRivers(A large-scale Causal Discovery benchmark for time series)
 
 The following content is included in this repository:
 
