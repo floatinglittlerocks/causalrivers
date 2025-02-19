@@ -8,15 +8,12 @@ Install via:
 
 
 ## Further functionality:
-- 1_custom_graph_sampling.ipynb: Tutorial on how to build your own graph subset 
+- Tutorial on how to build your own graph subset:  [Custom graph sampling](1_custom_graph_sampling.ipynb)
+- Tutorial on how to use the benchmark most efficiently:  [Custom graph sampling](2_tutorial_benchmarking.ipynb)
+- Tutorial on how to subselect specific temporal windows with certain weather conditions:    [Custom graph sampling](3_tutorial_subselect_weather_condition.ipynb)[Custom graph sampling](2_tutorial_benchmarking.ipynb)
+- Some general display of dataset properties that might be interesting for users:  [Custom graph sampling](4_data_distribution.ipynb)
+- Graphical documentation for paper content:  [Graphics generation ](graphics)
 
-- 2_tutorial_benchmarking.ipynb: Tutorial on how to use the benchmark in the most efficient manner
-
-- 3_tutorial_subselect_weather_condition.ipynb: Tutorial on how to subselect specific temporal windows with certain weather conditions (as in experiment 2)
-
-- 4_data_distribution.ipynb: Some general display of dataset properties that might be interesting for users.
-
-- graphics: Graphical documentation for paper content
 
 
 
@@ -28,6 +25,7 @@ https://github.com/CausalRivers/experiments (into the main folder)
 - Script for data downloading if called (and generally fix install)
 - Slim down the tools.
 - Properly update the tutorials
+- Tuttorial on the standard usage (to equalize)
 
 
 
