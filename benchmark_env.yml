@@ -1,4 +1,4 @@
-name: causal_rivers_core
+name: causalrivers
 channels:
   - conda-forge
   - defaults
@@ -92,4 +92,4 @@ dependencies:
     - submitit==1.5.2
     - threadpoolctl==3.5.0
     - tzdata==2025.1
-prefix: /home/stein/anaconda3/envs/causal_rivers_core
+prefix: /home/stein/anaconda3/envs/causalrivers
