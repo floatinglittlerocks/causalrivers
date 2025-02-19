@@ -8,7 +8,8 @@
 
 This is the official Repo of [CausalRivers](https://openreview.net/forum?id=wmV4cIbgl6), the largest real-world Causal Discovery benchmark for time series to this date.
 
-![alt-text-1](graphics/teaser.webp "title-1") ![alt-text-2](graphics/teaser2.webp "title-2")
+
+<img src="graphics/teaser.webp" width="300"><img src="graphics/teaser2.webp" width="300">
 
 
 
