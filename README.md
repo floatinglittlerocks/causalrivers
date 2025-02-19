@@ -35,9 +35,9 @@ python 0_generate_datsets.py
 
 This is the core benchmarking package, which only holds the core functionality and some tutorials on usage: 
 
-- Tutorial on how to build your graph subset:  [Custom graph sampling](1_custom_graph_sampling.ipynb)
-- Tutorial on how to use the benchmark most efficiently:  [Usage](2_tutorial_benchmarking.ipynb)
-- Tutorial on how to subselect specific temporal windows with certain weather conditions: [Temporal selections](3_tutorial_subselect_weather_condition.ipynb)
+- How to build your graph subset:  [Custom graph sampling](1_custom_graph_sampling.ipynb)
+- How to use the benchmark most efficiently:  [Usage](2_tutorial_benchmarking.ipynb)
+- How to subselect specific temporal windows with certain weather conditions: [Temporal selections](3_tutorial_subselect_weather_condition.ipynb)
 - Some general display of dataset properties that might be interesting for users:  [Data distribution](4_data_distribution.ipynb)
 - Graphical documentation as in our [Publication](https://openreview.net/pdf?id=wmV4cIbgl6):  [Graphics generation](graphics)
 
