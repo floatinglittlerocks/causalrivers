@@ -8,7 +8,7 @@
 
 This is the official Repo of [CausalRivers](https://openreview.net/forum?id=wmV4cIbgl6), the largest real-world Causal Discovery benchmark for time series to this date.
 
-![alt-text-1](graphics/teaser.webp "title-1") ![alt-text-2](graphics/teaser.webp "title-2")
+![alt-text-1](graphics/teaser.webp "title-1") ![alt-text-2](graphics/teaser2.webp "title-2")
 
 
 
@@ -41,7 +41,10 @@ This is the core benchmarking package, which only holds the core functionality a
 - Graphical documentation as in our [Publication](https://openreview.net/pdf?id=wmV4cIbgl6):  [Graphics generation](graphics)
 
 
-
+## Usage
+```
+Usecase if ready.
+```
 
 If you want to reproduce the experimental results further or compare your method under equal conditions, please clone: 
 ```
@@ -49,14 +52,20 @@ git clone https://github.com/CausalRivers/experiments
 ```
 
 The experiments were conducted on a Slurm Cluster and via Hydra configurations. However, the script can also be used on a single machine.
-We refrain to the [Experimental Documentation](https://openreview.net/pdf?id=wmV4cIbgl6](https://github.com/CausalRivers/benchmark/blob/main/experiments/README.md) for further information.
+We forward to the [Experimental Documentation](https://github.com/CausalRivers/benchmark/blob/main/experiments/README.md) for further information.
 
-### High prio todos: 
+
+## High prio todos: 
 
 - Script for data downloading if called (and generally fix install)
 - Slim down the tools.
 - Properly update the tutorials
-- Tuttorial on the standard usage (to equalize)
+- Tutorial on the standard usage (to equalize)
+
+
+### Maintainers
+[@GideonStein](https://github.com/Gideon-Stein).
+[@Timozen](https://github.com/Timozen).
 
 
 
