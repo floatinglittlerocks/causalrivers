@@ -14,7 +14,7 @@ This is the official Repo of [CausalRivers](https://openreview.net/forum?id=wmV4
 
 
 ### Install
-For the core benchmarking package simply run:
+For the core benchmarking package simply run (uses conda, unzip and wget):
 ```
 ./install.sh
 python 0_generate_datsets.py
