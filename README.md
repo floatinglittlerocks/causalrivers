@@ -73,12 +73,22 @@ We forward to the [Experimental Documentation](https://github.com/CausalRivers/b
 ## Contributors
 This project exists thanks to the generous provision of data by the following German institutions: 
 
- [THÜRINGER LANDESAMT FÜR UMWELT, BERGBAU UND NATURSCHUTZ](https://tlubn.thueringen.de/)
-  Landesbetrieb für Hochwasserschutz und Wasserwirtschaft Sachsen-Anhalt https://gld.lhw-sachsen-anhalt.de/
-Bayerisches Landesamt für Umwelt  https://www.hnd.bayern.de/
+ [Thüringer Landesamt für Umwelt, Bergbau und Naturschutz](https://tlubn.thueringen.de/)
+ 
+ [Landesbetrieb für Hochwasserschutz und Wasserwirtschaft Sachsen-Anhalt](https://gld.lhw-sachsen-anhalt.de/)
+ 
+ [Sächsisches Landesamt für Umwelt, Landwirtschaft und Geologie ](https://www.umwelt.sachsen.de/umwelt/infosysteme/lhwz/index.html)
+ 
+ [Landesamt für Umwelt, Naturschutz und Geologie Mecklenburg-Vorpommern](https://www.lung.mv-regierung.de/)
+ 
+ [Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt](https://wasserportal.berlin.de/start.php)
+ 
+ [Landesamt für Umwelt Brandenburg](https://lfu.brandenburg.de/lfu/de/)
+ 
+ [Generaldirektion Wasserstraßen und Schifffahrt](https://www.gdws.wsv.bund.de/)
+ 
+ [Bayerisches Landesamt für Umwelt](https://www.hnd.bayern.de/)
 
-Sächsisches Landesamt für Umwelt, Landwirtschaft und Geologie https://www.umwelt.sachsen.de/umwelt/infosysteme/lhwz/index.html
- Landesamt für Umwelt, Naturschutz und Geologie Mecklenburg-Vorpommern https://www.lung.mv-regierung.de/
+All Data sources fall under the [Data license Germany](https://www.govdata.de/dl-de/by-2-0)
 
-Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt https://wasserportal.berlin.de/start.php>
 
