@@ -68,6 +68,14 @@ We forward to the [Experimental Documentation](https://github.com/CausalRivers/b
 [@Timozen](https://github.com/Timozen).
 
 
+## Contributors
+
+This project exists thanks to the generous provision of data by the following German institutions: 
+
+ [THÜRINGER LANDESAMT FÜR UMWELT, BERGBAU UND NATURSCHUTZ](https://tlubn.thueringen.de/)
+ ...
+
+
 
 
 
