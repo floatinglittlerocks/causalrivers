@@ -4,8 +4,8 @@
 The following content is included in this repository:
 
 
-1. Install env via env.yml 
-2. Script to generate various subset categories: generate_datasets.py`
+1. Install env via ./install.sh
+2. Script to generate various subset categories: 0_generate_datsets.py`
 3. Functionality to work with the Benchmark. This includes: visualization and loading
 4. Example script for evaluation 
 5. Two baseline methods, SM and CT
