@@ -44,9 +44,11 @@ This is the core benchmarking package, which only holds the core functionality a
 
 
 ## Usage
+
+If you want to score your own method on a specific set of graph samples you can simply replace the baseline_method, configure it with hydra and run:
+
 ```
-DESCRIBE THE HYDRA STUFF FOR GENERATING
-Usecase if ready.
+python 3_benchmark.py method=your_method_name otherparams=value
 ```
 
 If you want to reproduce the experimental results further or compare your method under equal conditions, please clone: 

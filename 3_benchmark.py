@@ -8,13 +8,18 @@ from tools.tools import (
     standard_preprocessing,
     save_run,
 )
-from tools.baseline_methods import var_baseline as cd_method
 from tools.scoring_tools import score
 
 
 # Example script to benchmark causal discovery methods.
 @hydra.main(version_base=None, config_path="config", config_name="benchmark.yaml")
 def main(cfg: DictConfig):
+    
+    
+    if cfg.method.name == "var":
+        from tools.baseline_methods import var_baseline as cd_method
+    else:
+        print("SPECIFY AND LOAD YOUR OWN METHOD HERE")
 
     start = datetime.datetime.now()
     print(cfg)
