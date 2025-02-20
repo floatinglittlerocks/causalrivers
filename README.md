@@ -45,19 +45,22 @@ This is the core benchmarking package, which only holds the core functionality a
 
 ## Usage
 
+We use Hydra to organize preprocessing and method Hyperparameters. Along with this we provide functions to load data and score results. 
+We keep a single baseline strategy (VAR) here that is used as a placeholder and can be replaced with your own method. To check how the scoring works simply run: 
+
+```
+python 3_benchmark.py
+```
+This will run a var strategy with specified preprocessing on the "close 3" dataset and reproduce the scoring. For the remaining experimental results we refer to [the experiments repo](https://github.com/CausalRivers/experiments)
+
+
 If you want to score your own method on a specific set of graph samples you can simply replace the baseline_method, configure it with hydra and run:
 
 ```
 python 3_benchmark.py method=your_method_name otherparams=value
 ```
-
-If you want to reproduce the experimental results further or compare your method under equal conditions, please clone: 
-```
-git clone https://github.com/CausalRivers/experiments
-```
-
-The experiments were conducted on a Slurm Cluster and via Hydra configurations. However, the script can also be used on a single machine.
-We forward to the [Experimental Documentation](https://github.com/CausalRivers/benchmark/blob/main/experiments/README.md) for further information.
+Of course you can also use any routine from  [the experiments repo](https://github.com/CausalRivers/experiments), especially concerning Grid searches and result aggregations.
+Here, experiments were conducted on a Slurm Cluster and also via Hydra configurations. However, the script can also be used on a single machine.
 
 
 ## CausalRivers Benchmark Dataset Explanation
