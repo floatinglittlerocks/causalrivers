@@ -3,7 +3,7 @@ defaults:
   - method: var
   - data_preprocess: default_preprocessing
 
-label_path: "datasets/debug_set_5/east.p"
+label_path: "datasets/confounder_3/east.p"
 data_path: "product/rivers_ts_east_germany.csv"
 save_path: "results/"
 save_full_out: True

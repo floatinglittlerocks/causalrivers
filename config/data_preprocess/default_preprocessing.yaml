@@ -2,5 +2,5 @@ resolution: 6h
 interpolate: True
 subset: False
 subsample: 1
-normalize: False
+normalize: True
 remove_trailing_nans_early: False

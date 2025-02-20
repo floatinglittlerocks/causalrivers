@@ -51,7 +51,7 @@ We keep a single baseline strategy (VAR) here that is used as a placeholder and 
 ```
 python 3_benchmark.py
 ```
-This will run a var strategy with specified preprocessing on the "close 3" dataset and reproduce the scoring. For the remaining experimental results we refer to [the experiments repo](https://github.com/CausalRivers/experiments)
+This will run a var strategy with specified preprocessing on the "confounder 3" dataset and reproduce the scoring. For the remaining experimental results we refer to [the experiments repo](https://github.com/CausalRivers/experiments)
 
 
 If you want to score your own method on a specific set of graph samples you can simply replace the baseline_method, configure it with hydra and run:
