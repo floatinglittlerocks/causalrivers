@@ -3,6 +3,9 @@ import geopandas as gpd
 import networkx as nx
 import matplotlib as mpl
 import numpy as np
+from celluloid import Camera
+from IPython.display import HTML
+
 
 def plot_current_state_of_graph(
     G,
@@ -13,6 +16,7 @@ def plot_current_state_of_graph(
     arrowsize=20,
     fs=(10, 10),
     font_size=1,
+    font_color="black",
     save=False,
     river_map=0,
     ger_map=True,
@@ -21,16 +25,16 @@ def plot_current_state_of_graph(
     autozoom=None,
     width=1,
     show_edge_origin=False,
-    hardcode_colors = [],
-    ger_path = "visualization/east_german_map.shp",
-    river_path = "visualization/river_east_german_map.shp",
-    extra_points = [],
+    hardcode_colors=[],
+    ger_path="product/visualization/east_germany/east_german_map.shp",
+    river_path="product/visualization/east_germany/river_east_german_map.shp",
+    extra_points=[],
     river_width=0.5,
     title="Rivers East Germany",
-    pos = False,
-    ax = False
+    pos=False,
+    ax=False,
 ):
-#
+    #
     if not pos:
         pos = {x: np.flip(np.array(G.nodes[x]["p"][:2]).astype(float)) for x in G.nodes}
 
@@ -45,12 +49,13 @@ def plot_current_state_of_graph(
     if river_map:
         fp = river_path
         map_df = gpd.read_file(fp)
-        map_df.plot(color="blue", alpha=0.3, ax=ax, linewidth=river_width, edgecolor='blue')
+        map_df.plot(
+            color="blue", alpha=0.3, ax=ax, linewidth=river_width, edgecolor="blue"
+        )
 
-
-    if hardcode_colors: 
+    if hardcode_colors:
         colors = hardcode_colors
-    else:        
+    else:
         colors = []
         for x in G.nodes:
             if x in emphasize:
@@ -58,21 +63,22 @@ def plot_current_state_of_graph(
             else:
                 colors.append(G.nodes[x]["c"])
     if show_edge_origin:
-        cmap = mpl.colormaps['Set1']
+        cmap = mpl.colormaps["Set1"]
         ege_base_colors = cmap(np.linspace(0, 1, 8))
         edge_colors = []
         for x in G.edges:
             edge_colors.append(tuple(ege_base_colors[G.edges[x]["origin"]]))
     nx.draw_networkx(
         G,
-        pos= pos,
+        pos=pos,
         with_labels=label,
         font_size=font_size,
+        font_color=font_color,
         node_size=node_size,
         arrows=True,
         node_color=colors,
         arrowsize=arrowsize,
-        edge_color= edge_colors if show_edge_origin else "black",
+        edge_color=edge_colors if show_edge_origin else "black",
         width=width,
         ax=ax,
     )
@@ -102,23 +108,83 @@ def plot_current_state_of_graph(
 
     if len(extra_points):
         for ex in extra_points:
-            ax.scatter(ex[0],ex[1],color="pink", s=100)
-            ax.annotate(ex[2], (ex[0],ex[1]))
+            ax.scatter(ex[0], ex[1], color="pink", s=100)
+            ax.annotate(ex[2], (ex[0], ex[1]))
 
     plt.show()
 
 
-
 def simple_sample_display(sample_data):
-    fig, axs = plt.subplots(len(sample_data.columns),1)
-    cmap = mpl.colormaps['plasma']
+    fix, axs = plt.subplots(len(sample_data.T), 1, figsize=(3 * len(sample_data.T), 10))
+    for n, x in enumerate(sample_data.columns):  #
+        sample_data[x].plot(ax=axs[n])
+        axs[n].set_ylabel("m³/s")
+    plt.show()
+
+
+def simple_sample_display_2(sample_data):
+    fig, axs = plt.subplots(len(sample_data.columns), 1)
+    cmap = mpl.colormaps["plasma"]
     # Take colors at regular intervals spanning the colormap.
-    for n,s in enumerate(sample_data.columns):
-        axs[n].set_ylabel(s, fontstyle="normal", fontsize=8,rotation=45)
-        rgba = cmap(1/(n+1))
+    for n, s in enumerate(sample_data.columns):
+        axs[n].set_ylabel(s, fontstyle="normal", fontsize=8, rotation=45)
+        rgba = cmap(1 / (n + 1))
         axs[n].plot(sample_data[s].values, linewidth=2, color=rgba)
         axs[n].get_xaxis().set_ticks([])
         axs[n].get_yaxis().set_ticks([])
     axs[n].get_yaxis().set_ticks([])
     axs[n].set_xlabel("Timesteps")
     plt.show()
+
+
+def fancy_plot(
+    sample_data,
+    base_c,
+):
+    fix, axs = plt.subplots(3, 1, figsize=(10, 7))
+    for n, x in enumerate(sample_data.columns):  #
+        axs[n].plot(sample_data[x], linewidth=2, color=base_c[n + 1], alpha=0.8)
+        axs[n].set_ylabel("m³/s", fontsize=15)
+        position = (
+            axs[n].get_xbound()[0] + 150,
+            sample_data[x].max() - (sample_data[x].max() - sample_data[x].min()) / 7,
+        )
+        axs[n].scatter(position[0], position[1], s=1000, color=base_c[n + 1])
+        offset = 27 if len(x) == 2 else 44
+        axs[n].text(
+            position[0] - offset,
+            position[1],
+            x,
+            verticalalignment="center",
+            fontstyle="italic",
+            fontsize=14,
+        )
+        axs[n].set_xlabel(None)
+        axs[n].tick_params(axis="both", which="major", labelsize=12)
+    axs[n].set_xlabel("Year", fontsize=14)
+    plt.show()
+
+
+def animate_ts(
+    sample_data,
+    steps=50,
+    length=5000,
+    colors=["darkred", "darkblue", "darkgreen", "darkorange", "darkviolet"],
+):
+    plt.tight_layout()
+    fig, axs = plt.subplots(sample_data.shape[1], 1, figsize=(sample_data.shape[1] * 2, 7))
+    camera = Camera(fig)
+    data = sample_data.apply(lambda x: np.log(x))
+    for x in range(data.shape[1]):
+        axs[x].yaxis.set_visible(False)
+        axs[x].xaxis.set_visible(False)
+    for x in range(steps):
+        for y in range(data.shape[1]):
+            axs[y].plot(
+                data.iloc[x : length + x][data.columns[y]].values,
+                color=colors[y],
+                linewidth=2,
+            )
+        camera.snap()
+    animation = camera.animate()
+    return HTML(animation.to_html5_video())

@@ -1,0 +1,4 @@
+name: var
+max_lag: 5 
+var_absolute_values: False
+map_to_summary_graph: "max"
