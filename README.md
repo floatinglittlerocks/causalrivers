@@ -7,6 +7,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 This is the official Repo of [CausalRivers](https://openreview.net/forum?id=wmV4cIbgl6), the largest real-world Causal Discovery benchmark for time series to this date.
+Also check our [Website](https://causalrivers.github.io/) where we will maintain the current leaderboard.
 
 
 <img src="graphics/teaser.webp" width="300"><img src="graphics/teaser2.webp" width="300">
