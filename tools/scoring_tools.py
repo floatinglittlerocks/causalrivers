@@ -10,21 +10,6 @@ from sklearn.metrics import (
 np.seterr(divide="ignore", invalid="ignore")
 
 
-def save_run(out,start, preds, cfg):
-    # make folder with naming
-    p = cfg.save_path + cfg.method.name + "_" + cfg.label_path.split("/")[-2]
-    if not os.path.exists(p):
-        os.makedirs(p)
-    inner_p = p + "/" + str(datetime.datetime.now())[:24]
-    os.makedirs(inner_p)
-    out.to_csv(inner_p + "/scoring.csv")
-    stop_time = datetime.datetime.now() - start
-    pd.DataFrame([stop_time], columns=["runtime"]).to_csv(
-        inner_p + "/runtime.csv"
-    )  # dumps to file:
-    with open(inner_p + "/config.yaml", "w") as f:
-        OmegaConf.save(cfg, f)
-    pickle.dump(preds, open(inner_p + "/preds.p", "wb"))
 
 
 
