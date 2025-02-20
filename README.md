@@ -57,6 +57,73 @@ The experiments were conducted on a Slurm Cluster and via Hydra configurations. 
 We forward to the [Experimental Documentation](https://github.com/CausalRivers/benchmark/blob/main/experiments/README.md) for further information.
 
 
+## CausalRivers Benchmark Dataset Explanation
+
+The dataset consists of **three** `NetworkX` graph structures, **three** metadata tables, and **three** time series in `CSV` file format.
+To facilitate matching between these different formats, each graph node shares a unique `ID` with its corresponding time series.
+
+Additionally, the metadata table contains information about the individual nodes.
+
+| Column Name   | Description                                                                                                                                         |
+|:-------------:|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ID`          | Unique ID                                                                                                                                           |
+| `R`           | River name                                                                                                                                          |
+| `X`           | X coordinate of measurement station (longitude)                                                                                                     |
+| `Y`           | Y coordinate of measurement station (latitude)                                                                                                      |
+| `D`           | Distance to the end of the river (or distance from source, encoded as negative numbers)                                                             |
+| `H`           | Elevation of measurement station                                                                                                                    |
+| `QD`          | Quality marker of the Distance                                                                                                                      |
+| `QH`          | Quality marker of the Height                                                                                                                        |
+| `QX`          | Quality marker of the X coordinate                                                                                                                  |
+| `QY`          | Quality marker of the Y coordinate                                                                                                                  |
+| `QR`          | Quality marker of the River name                                                                                                                    |
+| `O`           | Origin of the node (data source)                                                                                                                    |
+| `original_id` | ID of the station in the raw data before unification and reindexing (can be used to find the original station on online services of data providers) |
+
+Furthermore, both ground truth nodes and edges (**in the graph**) hold additional informations.
+
+| Node Attribute | Description                             |
+|:--------------:|-----------------------------------------|
+| `p`            | X, Y coordinates                        |
+| `c`            | color for consistency based on origin   |
+| `origin`       | origin of the node                      |
+| `H`            | as above                                |
+| `R`            | as above                                |
+| `D`            | as above                                |
+| `QD`           | as above                                |
+| `QH`           | as above                                |
+| `QX`           | as above                                |
+| `QY`           | as above                                |
+| `QR`           | as above                                |
+
+| Edge Attribute | Description                                                            |
+|:--------------:|------------------------------------------------------------------------|
+| `h_distance`   | elevation change between the two nodes                                 |
+| `geo_distance` | Euclidean distance between the two nodes                               |
+| `quality_geo`  | quality of the distance estimation (depends on QX and QY of the nodes) |
+| `quality_h`    | quality of the elevation estimation (depends on QH of the nodes)       |
+| `origin`       | strategy used to create this edge (see below for further information)  |
+
+### Quality Values
+
+The graph construction, particularly the edge determination, involves multiple strategies.
+To ensure transparency and reliability, we provide quality markers for each piece of information.
+These quality markers are defined as follows:
+
+| Node Value     | Description                                                                 |
+|:--------------:|-----------------------------------------------------------------------------|
+| `-1`           | Unknown as target value missing                                             |
+| `0`            | Original value                                                              |
+| `> 0`          | Value that was estimated or looked up by hand (Check construction pipeline for more details) |
+
+| Edge Value     | Description                                                                 |
+|:--------------:|-----------------------------------------------------------------------------|
+| `origin`       | The step under which the edge was added. E.g., origin 6 references to edges that were added as river splits by hand. |
+| `quality_h`    | Sum of the quality of the corresponding Heights estimated of the connected nodes. E.g. 0 references that both height estimates were not estimated. |
+| `quality_km`   | Sum of the quality of the corresponding coordinates (X, Y) estimated of the connected nodes. E.g. 0 references that both coordinates were not estimated. |
+
+
+
 ## High prio todos: 
 
 - Script for data downloading if called (and generally fix install)
