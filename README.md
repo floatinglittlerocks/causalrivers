@@ -130,14 +130,6 @@ These quality markers are defined as follows:
 
 
 
-## High prio todos: 
-
-- Script for data downloading if called (and generally fix install)
-- Slim down the tools.
-- Properly update the tutorials
-- Tutorial on the standard usage (to equalize)
-
-
 ### Maintainers
 [@GideonStein](https://github.com/Gideon-Stein).
 [@Timozen](https://github.com/Timozen).
