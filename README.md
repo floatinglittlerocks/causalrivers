@@ -16,6 +16,7 @@ For the core benchmarking package simply run (uses conda, unzip and wget):
 
 ```bash
 ./install.sh
+conda activate causalrivers
 python 0_generate_datasets.py
 ```
 
