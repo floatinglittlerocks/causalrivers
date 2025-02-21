@@ -23,6 +23,7 @@ Alternatively, you can execute the following commands by hand:
 
 ```bash
 conda env create -f benchmark_env.yml
+conda activate causalrivers
 wget https://github.com/CausalRivers/benchmark/releases/download/First_release/product.zip
 unzip product
 rm product.zip
