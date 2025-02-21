@@ -92,7 +92,12 @@ def main(cfg: DictConfig):
     if not os.path.exists(cfg.save_path):
         os.mkdir(cfg.save_path)
 
-    print(to_generate)
+    print("-" * 50)
+    print("Generating datasets for the following strategies:")
+    for x in to_generate:
+        print("\tStrategy: " + x[0] + " with " + str(x[1]) + " variables.")
+    print("-" * 50)
+
     ##### Sampling strategies
     for structure, n_vars in to_generate:
         if not os.path.exists(cfg.save_path + structure + "_" + str(n_vars)):
