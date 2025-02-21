@@ -73,7 +73,7 @@ def get_all_subgraphs(G: nx.Graph, n_vars: int = 5) -> list[set[int]]:
         n_vars (int): The number of nodes each subgraph should contain. Default is 5.
 
     Returns:
-        list (set[int]): A list of subgraphs, where each subgraph is represented as a set of node IDs.
+        list (list[int]): A list of subgraphs, where each subgraph is represented as a list of node IDs.
 
     Notes:
         This function may produce suboptimal results and could be improved for efficiency.
@@ -86,7 +86,7 @@ def get_all_subgraphs(G: nx.Graph, n_vars: int = 5) -> list[set[int]]:
         # graph stack holds all possible current extensions from the start node onwards.
         graph_stack = [[start_node]]
         for step in range(n_vars - 1):
-            # checks for all possible extensions for all current subgraphs in the graph stac
+            # checks for all possible extensions for all current subgraphs in the graph stack
             res = [item for sublist in [all_extensions(g, G) for g in graph_stack] for item in sublist]
             if len(res) > 0:
                 # extensions
@@ -163,7 +163,7 @@ def select_confounder_samples(G, n_vars):
     return samples
 
 
-def all_extensions(current_G, G, succ=True):
+def all_extensions(current_G: nx.Graph, G: nx.Graph, succ: bool = True):
     """
     Adds all possible extension to a given graph sample based on the main graph.
     """
