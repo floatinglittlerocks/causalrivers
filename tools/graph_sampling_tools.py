@@ -9,13 +9,16 @@ __all__ = [
     "all_extensions",
 ]
 
-import numpy as np
-from itertools import combinations
-import networkx as nx
 import random
+from itertools import combinations
+
+import networkx as nx
+import numpy as np
 
 
 # TODO The sampling algorithms are inefficient for higher number of nodes. FIX this with proper algorithms.
+# TODO Create a single random process for this tool to control the randomness -> reproducibility.
+# TODO Add a seed to the random processes.
 
 
 def add_one_random_node(G, candidates):
@@ -40,12 +43,13 @@ def combine_far_apart(G, candidates):
     TODO this needs an update. Inefficient.
     """
     new_samples = []
-
     geographic_means = []
+
     for sample in candidates:
         y = np.mean([G.nodes[x]["p"][0] for x in sample])
         x = np.mean([G.nodes[x]["p"][1] for x in sample])
         geographic_means.append(np.array([y, x]))
+
     for n, sample in enumerate(candidates):
         # search for the most distant:
         start = geographic_means[n]
@@ -56,16 +60,27 @@ def combine_far_apart(G, candidates):
                 dist = np.mean((start - point) ** 2)
                 current_best = m
         new_samples.append(tuple(sorted(sample + candidates[current_best])))
-    new_samples = set(new_samples)
-    return new_samples
+
+    return set(new_samples)
 
 
-def get_all_subgraphs(G, n_vars=5):
+def get_all_subgraphs(G: nx.Graph, n_vars: int = 5) -> list[set[int]]:
     """
-    Samples all possible subgraph with n nodes from a given graph
-    TODO update the graph sampling. Its suboptimal.
+    Samples all possible subgraphs with a specified number of nodes from a given graph.
+
+    Parameters:
+        G (nx.Graph): The input graph from which subgraphs are to be sampled.
+        n_vars (int): The number of nodes each subgraph should contain. Default is 5.
+
+    Returns:
+        list (set[int]): A list of subgraphs, where each subgraph is represented as a set of node IDs.
+
+    Notes:
+        This function may produce suboptimal results and could be improved for efficiency.
+        TODO update the graph sampling. Its suboptimal.
     """
     full_stack = []
+
     for start_node in list(G.nodes):
         no_graphs = False
         # graph stack holds all possible current extensions from the start node onwards.
@@ -78,12 +93,13 @@ def get_all_subgraphs(G, n_vars=5):
                 graph_stack = res
             else:
                 no_graphs = True
+
         if not no_graphs:
             full_stack.append(graph_stack)
+
     # There might be many double graphs so we remove them by
     # sorting ids and removing doubles via set.
-    full_stack = list(set(tuple(sorted(i)) for i in [item for sublist in full_stack for item in sublist]))
-    return full_stack
+    return list(set(tuple(sorted(i)) for i in [item for sublist in full_stack for item in sublist]))
 
 
 def get_all_sink_cases(G, n_vars=12, restrict=15):

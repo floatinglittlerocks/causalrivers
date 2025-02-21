@@ -81,13 +81,6 @@ def main(cfg: DictConfig):
     bav_G = load_pickle(cfg.train_G_path, verbose=True)
     flood_G = load_pickle(cfg.flood_G_path, verbose=True)
 
-    print("Nodes in East G: " + str(len(east_G.nodes)))
-    print("Edges in East G: " + str(len(east_G.edges)))
-    print("Nodes in Bav G: " + str(len(bav_G.nodes)))
-    print("Edges in Bav G: " + str(len(bav_G.edges)))
-    print("Nodes flood area: " + str(len(flood_G.nodes)))
-    print("Edges flood area: " + str(len(flood_G.edges)))
-
     if cfg.which == "ALL":
         to_generate = []
         for x in [3, 5]:
