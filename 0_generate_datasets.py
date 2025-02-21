@@ -52,6 +52,25 @@ def load_pickle(path: str, verbose: bool = False) -> nx.Graph:
     return G
 
 
+def save_subgraphs_to_pickle(main_G: nx.Graph, sub_G: nx.Graph, name: str, save_path_structure: Path) -> None:
+    """
+    Save subgraphs of a main graph to a pickle file.
+    This function takes a main graph and a subgraph, extracts the subgraphs from the main graph based on the nodes in the subgraph,
+    and saves them to a pickle file.
+    Args:
+        main_G (nx.Graph): The main graph from which subgraphs will be extracted.
+        sub_G (nx.Graph): The subgraph containing the nodes to extract from the main graph.
+        name (str): The name to use for the pickle file.
+        save_path_structure (Path): The directory path where the pickle file will be saved.
+    Returns:
+        None
+    """
+    try:
+        pickle.dump([nx.subgraph(main_G, x).copy() for x in sub_G], open(save_path_structure / f"{name}.p", "wb"))
+    except Exception as e:
+        raise Exception(f"Error saving pickle file: {save_path_structure / f'{name}.p'}. Please check the readme!") from e
+
+
 @hydra.main(version_base=None, config_path="config", config_name="data_sampling.yaml")
 def main(cfg: DictConfig):
     """
@@ -160,9 +179,9 @@ def main(cfg: DictConfig):
         print("Number of subgraphs for finetuning: " + str(len(bav)))
         print("Number of subgraphs for flood area: " + str(len(flood)))
 
-        pickle.dump([nx.subgraph(east_G, x).copy() for x in east], open(save_path_structure / "east.p", "wb"))
-        pickle.dump([nx.subgraph(bav_G, x).copy() for x in bav], open(save_path_structure / "bav.p", "wb"))
-        pickle.dump([nx.subgraph(flood_G, x).copy() for x in flood], open(save_path_structure / "flood.p", "wb"))
+        save_subgraphs_to_pickle(east_G, east, "east", save_path_structure)
+        save_subgraphs_to_pickle(bav_G, bav, "bav", save_path_structure)
+        save_subgraphs_to_pickle(flood_G, flood, "flood", save_path_structure)
 
 
 if __name__ == "__main__":
