@@ -1,4 +1,3 @@
-import os
 import pickle
 import sys
 from pathlib import Path
@@ -89,8 +88,8 @@ def main(cfg: DictConfig):
     else:
         to_generate = [(cfg.which, cfg.n_vars)]
 
-    if not os.path.exists(cfg.save_path):
-        os.mkdir(cfg.save_path)
+    save_path = Path(cfg.save_path)
+    save_path.mkdir(exist_ok=True, parents=True)
 
     print("-" * 50)
     print("Generating datasets for the following strategies:")
@@ -100,8 +99,8 @@ def main(cfg: DictConfig):
 
     ##### Sampling strategies
     for structure, n_vars in to_generate:
-        if not os.path.exists(cfg.save_path + structure + "_" + str(n_vars)):
-            os.mkdir(cfg.save_path + structure + "_" + str(n_vars))
+        save_path_structure = save_path / f"{structure}_{n_vars}"
+        save_path_structure.mkdir(exist_ok=True, parents=True)
 
         if structure == "debug_set":
             print("Generating debug samples...")
@@ -161,18 +160,9 @@ def main(cfg: DictConfig):
         print("Number of subgraphs for finetuning: " + str(len(bav)))
         print("Number of subgraphs for flood area: " + str(len(flood)))
 
-        pickle.dump(
-            [nx.subgraph(east_G, x).copy() for x in east],
-            open(cfg.save_path + structure + "_" + str(n_vars) + "/east.p", "wb"),
-        )
-        pickle.dump(
-            [nx.subgraph(bav_G, x).copy() for x in bav],
-            open(cfg.save_path + structure + "_" + str(n_vars) + "/bav.p", "wb"),
-        )
-        pickle.dump(
-            [nx.subgraph(flood_G, x).copy() for x in flood],
-            open(cfg.save_path + structure + "_" + str(n_vars) + "/flood.p", "wb"),
-        )
+        pickle.dump([nx.subgraph(east_G, x).copy() for x in east], open(save_path_structure / "east.p", "wb"))
+        pickle.dump([nx.subgraph(bav_G, x).copy() for x in bav], open(save_path_structure / "bav.p", "wb"))
+        pickle.dump([nx.subgraph(flood_G, x).copy() for x in flood], open(save_path_structure / "flood.p", "wb"))
 
 
 if __name__ == "__main__":
