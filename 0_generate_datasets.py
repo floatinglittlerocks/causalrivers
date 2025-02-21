@@ -121,44 +121,40 @@ def main(cfg: DictConfig):
         save_path_structure = save_path / f"{structure}_{n_vars}"
         save_path_structure.mkdir(exist_ok=True, parents=True)
 
+        print("Generating dataset for: " + structure + " with " + str(n_vars) + " variables.")
+        print("Save path: " + str(save_path_structure))
+
         match structure:
             case "debug_set":
-                print("Generating debug samples...")
                 east, bav, flood = (get_all_subgraphs(x, n_vars=n_vars)[:5] for x in [east_G, bav_G, flood_G])
 
             case "random":
-                print("Generating random samples...")
                 east, bav, flood = (get_all_subgraphs(x, n_vars=n_vars) for x in [east_G, bav_G, flood_G])
 
             case "1_random":
-                print("Generating random samples with one disconnected...")
                 east, bav, flood = (get_all_subgraphs(x, n_vars=n_vars - 1) for x in [east_G, bav_G, flood_G])
                 east = add_one_random_node(east_G, east)
                 bav = add_one_random_node(bav_G, bav)
                 flood = []
 
             case "root_cause":
-                print("Root cause examples...")
                 east, bav, flood = (get_all_subgraphs(x, n_vars=n_vars) for x in [east_G, bav_G, flood_G])
                 east = [x for x in east if nx.dag_longest_path_length(east_G.subgraph(x)) == (n_vars - 1)]
                 bav = [x for x in bav if nx.dag_longest_path_length(bav_G.subgraph(x)) == (n_vars - 1)]
                 flood = [x for x in flood if nx.dag_longest_path_length(flood_G.subgraph(x)) == (n_vars - 1)]
 
             case "close":
-                print("Generating examples with low distance...")
                 east, bav, flood = (get_all_subgraphs(x, n_vars=n_vars) for x in [east_G, bav_G, flood_G])
                 east = [x for x in east if get_longest_path(nx.subgraph(east_G, x), measure=cfg.dist_measure) < cfg.max_distance]
                 bav = [x for x in bav if get_longest_path(nx.subgraph(bav_G, x), measure=cfg.dist_measure) < cfg.max_distance]
                 flood = [x for x in flood if get_longest_path(nx.subgraph(flood_G, x), measure=cfg.dist_measure) < cfg.max_distance]
 
             case "confounder":
-                print("Generating confounder examples...")
                 east = select_confounder_samples(east_G, n_vars)
                 bav = select_confounder_samples(bav_G, n_vars)
                 flood = select_confounder_samples(flood_G, n_vars)
 
             case "disjoint":
-                print("Disjoint examples...")
                 print("subset size:" + str(int(n_vars / 2)))
                 east, bav, flood = (get_all_subgraphs(x, n_vars=int(n_vars / 2)) for x in [east_G, bav_G, flood_G])
                 east = combine_far_apart(east_G, east)
@@ -166,11 +162,10 @@ def main(cfg: DictConfig):
                 flood = combine_far_apart(flood_G, flood)
 
             case "sink":
-                print("Selecting sink examples...")
                 east, bav, flood = (get_all_sink_cases(x, n_vars=n_vars, restrict=cfg.g_per_sink) for x in [east_G, bav_G, flood_G])
 
             case _:
-                print("VERSION UNKNOWN")
+                raise NotImplementedError(f"Sampling strategy not implemented: {structure}")
 
         print("Number of subgraphs: " + str(len(east)))
         print("Number of subgraphs for finetuning: " + str(len(bav)))
