@@ -1,6 +1,7 @@
 import os
 import pickle
 import sys
+from pathlib import Path
 
 import hydra
 import networkx as nx
@@ -12,6 +13,7 @@ from tools.graph_sampling_tools import add_one_random_node, combine_far_apart, g
 # Here we generate all sub-sampling strategies that we evaluate and some additional ones.
 # Additional ones might be added according to need.
 
+
 # - Random connected
 # - Confounding
 # - sub-selection with high elevation (not used) or short distance between nodes (used for paper), .
@@ -19,6 +21,36 @@ from tools.graph_sampling_tools import add_one_random_node, combine_far_apart, g
 # - All in a line (Causal Ordering
 # - One random node + connected graph
 # - Disjoint groups
+
+
+def load_pickle(path: str, verbose: bool = False) -> nx.Graph:
+    """
+    Loads a pickle file and tests the graph.
+    Args:
+        path (str): Path to the pickle file.
+    Returns:
+        nx.Graph: The loaded graph.
+    """
+    _path = Path(path)
+    if not _path.exists():
+        raise FileNotFoundError(f"File not found: {path}. Please check if you have downloaded the *product* dataset. Please check the readme!")
+
+    if not _path.is_file():
+        raise FileNotFoundError(f"Path is not a file: {path}. Please check if you have downloaded the *product* dataset. Please check the readme!")
+
+    if not _path.suffix == ".p":
+        raise FileNotFoundError(f"File is not a pickle file: {path}. Please check if you have downloaded the *product* dataset. Please check the readme!")
+
+    try:
+        G = pickle.load(open(_path, "rb"))
+    except Exception as e:
+        raise Exception(f"Error loading pickle file: {path}. Please check if you have downloaded the *product* dataset. Please check the readme!") from e
+
+    if verbose:
+        print(f"Nodes in G[{_path.name}]: {str(len(G.nodes))}")
+        print(f"Edges in G[{_path.name}]: {str(len(G.edges))}")
+
+    return G
 
 
 @hydra.main(version_base=None, config_path="config", config_name="data_sampling.yaml")
@@ -45,9 +77,9 @@ def main(cfg: DictConfig):
         6. Saves the generated subgraphs as pickle files in the specified save directory.
     """
 
-    east_G = pickle.load(open(cfg.test_G_path, "rb"))
-    bav_G = pickle.load(open(cfg.train_G_path, "rb"))
-    flood_G = pickle.load(open(cfg.flood_G_path, "rb"))
+    east_G = load_pickle(cfg.test_G_path, verbose=True)
+    bav_G = load_pickle(cfg.train_G_path, verbose=True)
+    flood_G = load_pickle(cfg.flood_G_path, verbose=True)
 
     print("Nodes in East G: " + str(len(east_G.nodes)))
     print("Edges in East G: " + str(len(east_G.edges)))
