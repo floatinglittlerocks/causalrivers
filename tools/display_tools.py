@@ -98,21 +98,18 @@ def plot_current_state_of_graph(
         else:
             pass
 
-    if save:
-
-        plt.savefig("resources/" + save + "_G.png", dpi=dpi)  # , dpi= 500
-        plt.close()
-
     ax.set_title(title)
-    ax.set_frame_on(True)
+    #ax.set_frame_on(True)
 
     if len(extra_points):
         for ex in extra_points:
             ax.scatter(ex[0], ex[1], color="pink", s=100)
             ax.annotate(ex[2], (ex[0], ex[1]))
 
-    plt.show()
-
+    if save:
+        plt.savefig(save,bbox_inches='tight')
+    else:
+        plt.show()
 
 def simple_sample_display(sample_data):
     fix, axs = plt.subplots(len(sample_data.T), 1, figsize=(3 * len(sample_data.T), 10))
@@ -140,8 +137,9 @@ def simple_sample_display_2(sample_data):
 def fancy_plot(
     sample_data,
     base_c,
+    save= 0
 ):
-    fix, axs = plt.subplots(3, 1, figsize=(10, 7))
+    fig, axs = plt.subplots(3, 1, figsize=(10, 7))
     for n, x in enumerate(sample_data.columns):  #
         axs[n].plot(sample_data[x], linewidth=2, color=base_c[n + 1], alpha=0.8)
         axs[n].set_ylabel("m³/s", fontsize=15)
@@ -162,8 +160,11 @@ def fancy_plot(
         axs[n].set_xlabel(None)
         axs[n].tick_params(axis="both", which="major", labelsize=12)
     axs[n].set_xlabel("Year", fontsize=14)
-    plt.show()
-
+    
+    if save: 
+        plt.savefig(save,bbox_inches='tight')
+    else:
+        plt.show()
 
 def animate_ts(
     sample_data,
