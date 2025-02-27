@@ -19,6 +19,7 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 For the core benchmarking package simply run (uses conda, unzip and wget):
 ```
 ./install.sh
+conda activate causalrivers
 python 0_generate_datsets.py
 ```
 Alternatively, you can execute the following commands: 
@@ -27,6 +28,7 @@ conda create -f benchmark_env.yml
 wget https://github.com/CausalRivers/benchmark/releases/download/First_release/product.zip
 unzip product
 rm product.zip
+conda activate causalrivers
 python 0_generate_datsets.py
 ```
 
