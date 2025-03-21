@@ -25,6 +25,7 @@ def var_baseline(d,cfg, human_readable=False):
 
     d.index = pd.DatetimeIndex(d.index.values,
                                freq=d.index.inferred_freq)
+    
     # For sime constant ts this sometimes fails so we predict 0 if no model can be estimated.
     try:
         # fit var with appropriate max lags
