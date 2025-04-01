@@ -12,7 +12,7 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 
 <img src="graphics/teaser.webp" width="300"><img src="graphics/teaser2.webp" width="300">
 
-
+❗We are currently working on constructing a way to submit benchmarking results directly and integrate them into the scoring table on our website. We will keep you updated.❗ 
 
 
 ### Install
