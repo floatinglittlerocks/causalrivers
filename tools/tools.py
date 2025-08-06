@@ -60,7 +60,8 @@ def preprocess_data(
     data,
     resolution="2H",
     interpolate=True,
-    subset=False,
+    subset_year=False,
+    subset_month=False,
     subsample=1,
     normalize=False,
     remove_trailing_nans_early=False,
@@ -78,10 +79,10 @@ def preprocess_data(
 
     sample_data = sample_data.groupby("dt").mean()
     # subsampling
-    if subset:
+    if subset_year:
         sample_data = sample_data.loc[
-            (sample_data.index.month.isin(subset[1]))
-            & (sample_data.index.year == subset[0])
+            (sample_data.index.month.isin(subset_month))
+            & (sample_data.index.year == subset_year)
         ]
     sample_data = sample_data.iloc[::subsample, :]
     if normalize:
@@ -104,7 +105,8 @@ def standard_preprocessing(
         data,
         resolution=cfg.resolution,
         interpolate=cfg.interpolate,
-        subset=cfg.subset,
+        subset_year=cfg.subset_year,
+        subset_month=cfg.subset_year,
         subsample=cfg.subsample,
         normalize=cfg.normalize,
         remove_trailing_nans_early=cfg.remove_trailing_nans_early

@@ -5,11 +5,12 @@ import matplotlib as mpl
 import numpy as np
 from celluloid import Camera
 from IPython.display import HTML
-
+from matplotlib.transforms import Affine2D
+from matplotlib.collections import PathCollection
+from matplotlib.lines import Line2D
 
 def plot_current_state_of_graph(
     G,
-    dpi=100,
     lim=(50.1, 54.8),
     limx=(9.65, 15.1),
     node_size=50,
@@ -33,7 +34,12 @@ def plot_current_state_of_graph(
     title="Rivers East Germany",
     pos=False,
     ax=False,
+    rotate_by=0, #TODO doesnt work.
+    custom_legend = None,
+    log_scale=None
 ):
+    
+    
     #
     if not pos:
         pos = {x: np.flip(np.array(G.nodes[x]["p"][:2]).astype(float)) for x in G.nodes}
@@ -44,11 +50,15 @@ def plot_current_state_of_graph(
     if ger_map:
         fp = ger_path
         map_df2 = gpd.read_file(fp)
+        if rotate_by != 0:
+            map_df2 = map_df2.rotate(rotate_by)
         map_df2.plot(color="green", ax=ax, alpha=0.3, linewidth=5, edgecolor="black")
 
     if river_map:
         fp = river_path
         map_df = gpd.read_file(fp)
+        if rotate_by != 0:
+            map_df = map_df.rotate(rotate_by)
         map_df.plot(
             color="blue", alpha=0.3, ax=ax, linewidth=river_width, edgecolor="blue"
         )
@@ -82,6 +92,16 @@ def plot_current_state_of_graph(
         width=width,
         ax=ax,
     )
+    
+    
+    if rotate_by != 0:
+        r = Affine2D().rotate_deg(rotate_by)  # Create a rotation transformation
+        for x in ax.images + ax.lines + ax.collections:
+            trans = x.get_transform()
+            x.set_transform(r+trans)
+            if isinstance(x, PathCollection):
+                transoff = x.get_offset_transform()
+                x._transOffset = r+transoff    #ax.set_frame_on(True)
     if autozoom:
         ax.set_xlim(
             min([pos[x][0] for x in pos.keys()]) - autozoom,
@@ -98,21 +118,29 @@ def plot_current_state_of_graph(
         else:
             pass
 
-    if save:
+    if custom_legend:
+        ax.legend(handles=custom_legend[0], loc=custom_legend[1])
+        
+    if log_scale: 
+        ax.set_xscale("log", base=3.75)
 
-        plt.savefig("resources/" + save + "_G.png", dpi=dpi)  # , dpi= 500
-        plt.close()
+
+        ax.set_yscale("asinh")
+
 
     ax.set_title(title)
-    ax.set_frame_on(True)
+    # doesnt work...
+
 
     if len(extra_points):
         for ex in extra_points:
-            ax.scatter(ex[0], ex[1], color="pink", s=100)
+            ax.scatter(ex[0], ex[1], color="pink", s=100,edgecolors='black')
             ax.annotate(ex[2], (ex[0], ex[1]))
 
-    plt.show()
-
+    if save:
+        plt.savefig(save,bbox_inches='tight', dpi=500)
+    else:
+        plt.show()
 
 def simple_sample_display(sample_data):
     fix, axs = plt.subplots(len(sample_data.T), 1, figsize=(3 * len(sample_data.T), 10))
@@ -140,8 +168,9 @@ def simple_sample_display_2(sample_data):
 def fancy_plot(
     sample_data,
     base_c,
+    save= 0
 ):
-    fix, axs = plt.subplots(3, 1, figsize=(10, 7))
+    fig, axs = plt.subplots(3, 1, figsize=(10, 7))
     for n, x in enumerate(sample_data.columns):  #
         axs[n].plot(sample_data[x], linewidth=2, color=base_c[n + 1], alpha=0.8)
         axs[n].set_ylabel("m³/s", fontsize=15)
@@ -162,8 +191,11 @@ def fancy_plot(
         axs[n].set_xlabel(None)
         axs[n].tick_params(axis="both", which="major", labelsize=12)
     axs[n].set_xlabel("Year", fontsize=14)
-    plt.show()
-
+    
+    if save: 
+        plt.savefig(save,bbox_inches='tight')
+    else:
+        plt.show()
 
 def animate_ts(
     sample_data,

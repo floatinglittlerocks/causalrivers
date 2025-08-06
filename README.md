@@ -12,6 +12,10 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 
 ## Install
 
+<img src="graphics/teaser.webp" width="300"><img src="graphics/teaser2.webp" width="300">
+
+❗To improve being up-to-date, we are currently working on constructing a way to submit benchmarking results directly and integrate them into the scoring table on our website. We will look forward to your submissions.❗ 
+
 For the core benchmarking package simply run (uses conda, unzip and wget):
 
 ```bash
@@ -55,7 +59,7 @@ This will run a var strategy with specified preprocessing on the "confounder 3" 
 If you want to score your own method on a specific set of graph samples you can simply replace the baseline_method, configure it with hydra and run:
 
 ```bash
-python 3_benchmark.py method=your_method_name otherparams=value
+python 3_benchmark.py label_path=datasets/random_3/east.p data_path=product/rivers_ts_east_germany.csv method=var  data_preprocess.normalize=False  data_preprocess.resolution=6H method.var_absolute_values=False method.max_lag=5
 ```
 
 Of course you can also use any routine from  [the experiments repo](https://github.com/CausalRivers/experiments), especially concerning Grid searches and result aggregations.
