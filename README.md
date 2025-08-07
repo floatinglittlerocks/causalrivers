@@ -12,8 +12,6 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 
 ## Install
 
-<img src="graphics/teaser.webp" width="300"><img src="graphics/teaser2.webp" width="300">
-
 ❗To improve being up-to-date, we are currently working on constructing a way to submit benchmarking results directly and integrate them into the scoring table on our website. We will look forward to your submissions.❗ 
 
 For the core benchmarking package simply run (uses conda, unzip and wget):
