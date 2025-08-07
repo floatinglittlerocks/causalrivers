@@ -168,9 +168,11 @@ def simple_sample_display_2(sample_data):
 def fancy_plot(
     sample_data,
     base_c,
-    save= 0
+    save= 0,
+    emph=19999,
+    label_nodes=True
 ):
-    fig, axs = plt.subplots(3, 1, figsize=(10, 7))
+    fig, axs = plt.subplots(3, 1, figsize=(12, 5))
     for n, x in enumerate(sample_data.columns):  #
         axs[n].plot(sample_data[x], linewidth=2, color=base_c[n + 1], alpha=0.8)
         axs[n].set_ylabel("m³/s", fontsize=15)
@@ -178,22 +180,65 @@ def fancy_plot(
             axs[n].get_xbound()[0] + 150,
             sample_data[x].max() - (sample_data[x].max() - sample_data[x].min()) / 7,
         )
-        axs[n].scatter(position[0], position[1], s=1000, color=base_c[n + 1])
-        offset = 27 if len(x) == 2 else 44
-        axs[n].text(
-            position[0] - offset,
-            position[1],
-            x,
-            verticalalignment="center",
-            fontstyle="italic",
-            fontsize=14,
-        )
+        if label_nodes:
+            axs[n].scatter(position[0], position[1], s=900, color=base_c[n + 1])
+            offset = 27 if len(x) == 2 else 35
+            axs[n].text(
+                position[0] - offset,
+                position[1],
+                x,
+                verticalalignment="center",
+                fontstyle="italic",
+                fontsize=12,
+            )
         axs[n].set_xlabel(None)
         axs[n].tick_params(axis="both", which="major", labelsize=12)
+        
+        
+        
+        limit =  axs[n].get_xlim()
+        
+        axs[n].vlines(emph,sample_data[x].min(),sample_data[x].max(), color="red", linewidth=2)
+        axs[n].vlines(emph+150,sample_data[x].min(),sample_data[x].max(), color="red", linewidth=2)
+        axs[n].hlines(0,emph, emph+150, color="red", linewidth=2)
+        axs[n].hlines(sample_data[x].max(),emph, emph+150, color="red", linewidth=2)
+        axs[n].set_xlim(limit[0],limit[1])
+        
+    axs[0].set_xticklabels([])
+    axs[1].set_xticklabels([])
+
+
     axs[n].set_xlabel("Year", fontsize=14)
-    
     if save: 
-        plt.savefig(save,bbox_inches='tight')
+        plt.savefig(save,bbox_inches='tight', dpi=500)
+    else:
+        plt.show()
+
+def bare_fancy_plot(
+    sample_data,
+    save,
+    base_c
+    
+    ):
+
+    fig, axs = plt.subplots(3, 1, figsize=(8, 5))
+    labels = ["A", "B", "C"]
+    for n, x in enumerate(sample_data.columns):  #
+        axs[n].plot(sample_data[x], linewidth=3, color=base_c[n + 1], alpha=1)
+        axs[n].set_ylabel(labels[n], fontsize=25)
+        axs[n].set_xlabel(None)
+        axs[n].tick_params(axis="both", which="major", labelsize=12)        
+        axs[n].set_yticklabels([])
+
+        
+    axs[0].set_xticklabels([])
+    axs[1].set_xticklabels([])
+
+
+    axs[n].set_xlabel("Year", fontsize=14)
+
+    if save: 
+        plt.savefig(save,bbox_inches='tight', dpi=500)
     else:
         plt.show()
 
