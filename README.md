@@ -50,7 +50,6 @@ This is the core benchmarking package, which only holds the core functionality a
 - How to use the benchmark most efficiently:  [Usage](2_tutorial_benchmarking.ipynb)
 - How to sub-select specific temporal windows with certain weather conditions: [Temporal selections](3_tutorial_subselect_weather_condition.ipynb)
 - Some general display of dataset properties that might be interesting for users:  [Data distribution](4_data_distribution.ipynb)
-- Graphical documentation as in our [Publication](https://openreview.net/pdf?id=wmV4cIbgl6):  [Graphics generation](graphics)
 
 ## Usage
 
