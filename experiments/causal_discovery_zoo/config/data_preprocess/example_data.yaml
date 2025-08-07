@@ -1,0 +1,7 @@
+resolution: 6H
+interpolate: True
+subset_month: False
+subset_year: False
+subsample: 1
+normalize: True
+remove_trailing_nans_early: False

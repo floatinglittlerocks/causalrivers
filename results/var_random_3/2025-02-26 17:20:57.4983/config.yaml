@@ -1,0 +1,20 @@
+label_path: datasets/random_3/east.p
+data_path: product/rivers_ts_east_germany.csv
+save_path: results/
+save_full_out: true
+remove_diagonal: true
+restrict_to: -1
+dt_preprocess: true
+method:
+  name: var
+  max_lag: 5
+  var_absolute_values: false
+  map_to_summary_graph: max
+data_preprocess:
+  resolution: 6H
+  interpolate: true
+  subset_month: false
+  subset_year: false
+  subsample: 1
+  normalize: false
+  remove_trailing_nans_early: false
