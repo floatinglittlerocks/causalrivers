@@ -33,6 +33,15 @@ rm product.zip
 python 0_generate_datasets.py
 ```
 
+For the DWD data access please install: 
+
+```bash
+pip install polars-lts-cpu==1.32.2 # This somehow hast the installed after everything.
+```
+
+
+
+
 ## Functionality
 
 This is the core benchmarking package, which only holds the core functionality and some tutorials on usage:
