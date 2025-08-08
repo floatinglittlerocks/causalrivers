@@ -1,4 +1,0 @@
-name: combo
-max_lag: 5 
-reverse_physical: True
-filter_mode: None # next,biggest,corr
