@@ -8,7 +8,7 @@
 This is the official repository of [CausalRivers](https://openreview.net/forum?id=wmV4cIbgl6), the largest real-world Causal Discovery benchmark for time series to this date.
 Also check our [Website](https://causalrivers.github.io/) where we will maintain the current leaderboard.
 
-<img src="graphics/teaser.webp" width="300" alt="Image of East-Germany"><img src="graphics/teaser2.webp" width="300" alt="Image of Bavaria">
+<img src="teasers/teaser.webp" width="300" alt="Image of East-Germany"><img src="teasers/teaser2.webp" width="300" alt="Image of Bavaria">
 
 ## Install
 
