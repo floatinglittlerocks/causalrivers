@@ -72,13 +72,12 @@ Of course you can also use any routine from  [the experiments repo](https://gith
 Here, experiments were conducted on a computation cluster with the job submission system [slurm](https://slurm.schedmd.com/documentation.html) and also via [hydra](https://hydra.cc/) configurations.
 However, the script can also be used on a single machine.
 
-A collection of graphical tools can be found by cloning  [the experiments repo](https://github.com/CausalRivers/graphics), into this repository
 
 
 ## Leaderboard submission
 
 
-We maintain an active leaderboard for CausalRivers. You can submit to this leaderboard by using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSfDcNKLPo0L5ihIV9HDFhhkTWLNzcexsFWXvaU6tb8lPdBlyQ/viewform). Here you can submit your raw predictions for the different datasets. For the format, please check [example submission file](https://github.com/CausalRivers/causalrivers/fantasy_submission.csv). Note, you dont't have to submit results for all datasets (as shown in the example file). Further, if you want to integrate the algorithm that produced your scorings, you can submit it along with the predictions and we will include it under [the CD zoo](https://github.com/CausalRivers/experiments/causal_discovery_zoo). We will also reference it accordingly to your wishes.
+We maintain an active leaderboard for CausalRivers. You can submit to this leaderboard by using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSfDcNKLPo0L5ihIV9HDFhhkTWLNzcexsFWXvaU6tb8lPdBlyQ/viewform). Here you can submit your raw predictions for the different datasets. For the format, please check [example submission file](fantasy_submission.csv). Note, you dont't have to submit results for all datasets (as shown in the example file). Further, if you want to integrate the algorithm that produced your scorings, you can submit it along with the predictions and we will include it under [the CD zoo](https://github.com/CausalRivers/experiments/tree/main/causal_discovery_zoo). We will reference it accordingly to your wishes.
 
 
 
