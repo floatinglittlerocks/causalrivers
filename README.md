@@ -17,7 +17,7 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 
 ❗We maintain an active leaderboard for CausalRivers.❗ 
 You can submit to this leaderboard by using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSfDcNKLPo0L5ihIV9HDFhhkTWLNzcexsFWXvaU6tb8lPdBlyQ/viewform). 
-Here you can submit your raw predictions for the different datasets. For the format, please check [example submission file](fantasy_submission.csv). 
+Here you can submit your raw performance for the different datasets. For the format, please check [example submission file](fantasy_submission.csv). 
 Note, you dont't have to submit results for all datasets (as shown in the example file). 
 Further, if you want to integrate the algorithm that produced your scorings, you can submit it along with the predictions and we will include it under [the CD zoo](https://github.com/CausalRivers/experiments/tree/main/causal_discovery_zoo). We will reference it accordingly to your wishes.
 
