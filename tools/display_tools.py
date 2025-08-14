@@ -248,13 +248,13 @@ def animate_ts(
     length=5000,
     colors=["darkred", "darkblue", "darkgreen", "darkorange", "darkviolet"],
 ):
-    plt.tight_layout()
-    fig, axs = plt.subplots(sample_data.shape[1], 1, figsize=(sample_data.shape[1] * 2, 7))
-    camera = Camera(fig)
+    fig, axs = plt.subplots(sample_data.shape[1], 1, figsize=(16,9))
     data = sample_data.apply(lambda x: np.log(x))
     for x in range(data.shape[1]):
         axs[x].yaxis.set_visible(False)
         axs[x].xaxis.set_visible(False)
+    plt.tight_layout()
+    camera = Camera(fig)
     for x in range(steps):
         for y in range(data.shape[1]):
             axs[y].plot(
