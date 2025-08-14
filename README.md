@@ -10,9 +10,19 @@ Also check our [Website](https://causalrivers.github.io/) where we will maintain
 
 <img src="img/teaser.webp" width="300" alt="Image of East-Germany"><img src="img/teaser2.webp" width="300" alt="Image of Bavaria">
 
-## Install
 
-❗To improve being up-to-date, we are currently working on constructing a way to submit benchmarking results directly and integrate them into the scoring table on our website. We will look forward to your submissions.❗ 
+
+## Leaderboard submission
+
+
+❗We maintain an active leaderboard for CausalRivers. You can submit to this leaderboard by using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSfDcNKLPo0L5ihIV9HDFhhkTWLNzcexsFWXvaU6tb8lPdBlyQ/viewform). Here you can submit your raw predictions for the different datasets. For the format, please check [example submission file](fantasy_submission.csv). Note, you dont't have to submit results for all datasets (as shown in the example file). Further, if you want to integrate the algorithm that produced your scorings, you can submit it along with the predictions and we will include it under [the CD zoo](https://github.com/CausalRivers/experiments/tree/main/causal_discovery_zoo). We will reference it accordingly to your wishes.❗
+
+
+
+
+
+
+## Install
 
 For the core benchmarking package simply run (uses conda, unzip and wget):
 
@@ -72,12 +82,6 @@ Of course you can also use any routine from  [the experiments repo](https://gith
 Here, experiments were conducted on a computation cluster with the job submission system [slurm](https://slurm.schedmd.com/documentation.html) and also via [hydra](https://hydra.cc/) configurations.
 However, the script can also be used on a single machine.
 
-
-
-## Leaderboard submission
-
-
-We maintain an active leaderboard for CausalRivers. You can submit to this leaderboard by using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSfDcNKLPo0L5ihIV9HDFhhkTWLNzcexsFWXvaU6tb8lPdBlyQ/viewform). Here you can submit your raw predictions for the different datasets. For the format, please check [example submission file](fantasy_submission.csv). Note, you dont't have to submit results for all datasets (as shown in the example file). Further, if you want to integrate the algorithm that produced your scorings, you can submit it along with the predictions and we will include it under [the CD zoo](https://github.com/CausalRivers/experiments/tree/main/causal_discovery_zoo). We will reference it accordingly to your wishes.
 
 
 
