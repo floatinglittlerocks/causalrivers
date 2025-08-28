@@ -30,6 +30,7 @@ PyYAML==6.0.2
 scikit-learn==1.7.1
 scipy==1.16.1
 semopy==2.3.11
+setuptools==80.9.0
 six==1.17.0
 statsmodels==0.14.5
 submitit==1.5.3
@@ -38,3 +39,4 @@ threadpoolctl==3.6.0
 tigramite==5.2.8.2
 typing_extensions==4.15.0
 tzdata==2025.2
+
