@@ -39,8 +39,8 @@ python 0_generate_datasets.py
 Alternatively, you can execute the following commands by hand:
 
 ```bash
-conda env create -f benchmark_env.yml
-conda activate causalrivers
+conda env create -f causal_rivers_core.yml.yml
+conda activate causal_rivers_core
 wget https://github.com/CausalRivers/benchmark/releases/download/First_release/product.zip
 unzip product
 rm product.zip
