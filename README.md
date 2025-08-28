@@ -47,7 +47,19 @@ rm product.zip
 python 0_generate_datasets.py
 ```
 
-For the DWD data access please install: 
+
+If you want to get a working environment for the raven cluster (ELLIS summer school Jena) run: 
+
+```bash
+conda create -n causalrivers
+conda activate causalrivers
+pip install -r cluster_env.txt
+```
+
+
+
+
+For the DWD data access, please install: 
 
 ```bash
 pip install polars-lts-cpu==1.32.2 # This somehow hast the installed after everything.
