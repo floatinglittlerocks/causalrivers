@@ -172,11 +172,11 @@ These quality markers are defined as follows:
 
 @Ellis Summer school Jena
 Here are some resources to begin with Causal Discovery.
-[Basic Python Tutorial]([https://slurm.schedmd.com/documentation.html](https://medium.com/causality-in-data-science/hands-on-causal-discovery-with-python-e4fb2488c543))
-[Text Book]([https://pubs.aip.org/aip/cha/article/28/7/075310/386353](https://library.oapen.org/bitstream/id/056a11be-ce3a-44b9-8987-a6c68fce8d9b/11283.pdf)
-[Causal Discovery in Real World settings](https://pubs.aip.org/aip/cha/article/28/7/075310/386353)
-[Granger Causality](https://www.aptech.com/blog/introduction-to-granger-causality/)
-[Introduction to Causal Discovery for time series](https://www.ijcai.org/proceedings/2023/0766.pdf)
+- [Basic Python Tutorial]([https://slurm.schedmd.com/documentation.html](https://medium.com/causality-in-data-science/hands-on-causal-discovery-with-python-e4fb2488c543))
+- [Text Book]([https://pubs.aip.org/aip/cha/article/28/7/075310/386353](https://library.oapen.org/bitstream/id/056a11be-ce3a-44b9-8987-a6c68fce8d9b/11283.pdf)
+- [Causal Discovery in Real World settings](https://pubs.aip.org/aip/cha/article/28/7/075310/386353)
+- [Granger Causality](https://www.aptech.com/blog/introduction-to-granger-causality/)
+- [Introduction to Causal Discovery for time series](https://www.ijcai.org/proceedings/2023/0766.pdf)
 
 
 ## Maintainers
