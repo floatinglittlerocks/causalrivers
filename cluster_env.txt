@@ -39,4 +39,4 @@ threadpoolctl==3.6.0
 tigramite==5.2.8.2
 typing_extensions==4.15.0
 tzdata==2025.2
-
+setuptools==80.9.0
