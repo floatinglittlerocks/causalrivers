@@ -6,6 +6,10 @@ import datetime
 from omegaconf import OmegaConf
 
 
+import numpy as np
+from scipy.fft import rfft, irfft, rfftfreq
+
+
 def remove_trailing_nans(sample_prep):
     """
     Removes samples that were not removed by interpolate.
@@ -53,8 +57,6 @@ def load_sample(which, p="resources/rivers_ts_east_germany.csv"):
     return pd.read_csv(
         p, index_col=0, usecols=["datetime"] + [str(x) for x in list(which.nodes)]
     )
-
-
 
 def preprocess_data(
     data,
@@ -185,3 +187,47 @@ def save_run(out,stop_time, preds, cfg):
     with open(inner_p + "/config.yaml", "w") as f:
         OmegaConf.save(cfg, f)
     pickle.dump(preds, open(inner_p + "/preds.p", "wb"))
+
+
+
+def remove_seasonality(data, fs=0.5, cutoff_days=30):
+    """
+    Remove low-frequency seasonality from time series data using FFT.
+    
+    Parameters
+    ----------
+    data : array-like, shape (n_time, n_nodes)
+        Time series data for multiple nodes.
+    fs : float, optional
+        Sampling frequency in samples per hour (default is 0.5 for 2-hourly data).
+    cutoff_days : int, optional
+        Seasonal period to remove in days (default is 30).
+    
+    Returns
+    -------
+    filtered_data : ndarray, shape (n_time, n_nodes)
+        The data after removing low-frequency seasonal components.
+    """
+    arr = data.values if hasattr(data, "values") else np.asarray(data)
+    n_time, n_nodes = arr.shape
+
+    # Frequency axis
+    freqs = rfftfreq(n_time, d=1/fs)  # positive frequencies
+
+    # Cutoff frequency in cycles per hour
+    cutoff_hours = cutoff_days * 24
+    cutoff_freq = 1 / cutoff_hours
+
+    filtered_data = np.zeros_like(arr)
+
+    for node in range(n_nodes):
+        sig = arr[:, node]
+        fft_vals = rfft(sig)
+
+        # Zero out low frequencies (below cutoff)
+        fft_vals[freqs < cutoff_freq] = 0
+
+        # Inverse FFT to get filtered signal
+        filtered_data[:, node] = irfft(fft_vals, n=n_time)
+
+    return filtered_data
